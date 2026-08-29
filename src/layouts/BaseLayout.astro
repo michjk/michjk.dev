@@ -1,0 +1,43 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Michael Jonathan — Backend & Data Engineer",
+  description = "Michael Jonathan is a Backend & Data Engineer based in Singapore, specializing in data platforms, ad-tech pipelines, and distributed systems.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Theme init: read localStorage before first paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("theme");
+        const theme = saved === "light" ? "light" : "dark";
+        document.documentElement.classList.remove("dark", "light");
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>

@@ -1,0 +1,56 @@
+---
+import { identity } from "../data/portfolio";
+import Icon from "./Icon.astro";
+---
+
+<section id="contact" class="section" style={{ paddingBottom: "120px" }}>
+  <div data-reveal="up">
+    <div class="section-label">Contact</div>
+  </div>
+
+  <h2
+    class="section-title"
+    data-text-reveal
+    data-stagger="40"
+    style={{ display: "flex", flexWrap: "wrap", gap: "0 0.3em" }}
+  >
+    {"Let's talk.".split(/\s+/).map((word) => (
+      <span style={{ overflow: "hidden", display: "inline-block" }}>
+        <span data-word style={{ display: "inline-block" }}>{word}</span>
+      </span>
+    ))}
+  </h2>
+
+  <div data-reveal="up" data-delay="100">
+    <div class="card-base" style={{
+      padding: "32px 36px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "18px",
+      maxWidth: "var(--prose-max)",
+    }}>
+      <p style={{ fontSize: "24px", fontWeight: 500, margin: 0, color: "var(--text-primary)", letterSpacing: "-0.005em" }}>
+        Open to discussions about backend, data, or platform work.
+      </p>
+      <p style={{ fontSize: "14px", color: "var(--text-secondary)", margin: 0, lineHeight: 1.6 }}>
+        Based in {identity.location}. Reach out via LinkedIn for roles, collaborations, or just to connect.
+      </p>
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "8px" }}>
+        <a
+          href={identity.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          <Icon name="linkedin" size={14} /> Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { setupScrollReveals, setupTextReveals } from "../scripts/motion";
+  setupScrollReveals();
+  setupTextReveals();
+</script>

@@ -1,0 +1,333 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Fonts
+   ============================================================ */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Inter-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Inter-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-500.woff2") format("woff2");
+}
+
+/* ============================================================
+   Design tokens — Dark mode (default)
+   ============================================================ */
+:root,
+:root.dark {
+  --bg-base:     #0d1117;
+  --bg-surface:  #161b22;
+  --bg-raised:   #21262d;
+  --bg-overlay:  #30363d;
+
+  --text-primary:   #e6edf3;
+  --text-secondary: #8d96a0;
+  --text-tertiary:  #6e7681;
+  --text-muted:     #484f58;
+
+  --border-subtle:  #21262d;
+  --border-default: #30363d;
+  --border-strong:  #6e7681;
+
+  --accent:        #58a6ff;
+  --accent-hover:  #79b8ff;
+  --accent-muted:  #0d2d6e;
+  --accent-on:     #0d1117;
+
+  --green:       #3fb950;
+  --green-muted: #0f2b15;
+
+  --amber:       #d29922;
+  --amber-muted: #2b1f00;
+
+  --red:       #f85149;
+  --red-muted: #2b0d0d;
+
+  --purple:       #bc8cff;
+  --purple-muted: #1d0f38;
+}
+
+/* ============================================================
+   Design tokens — Light mode
+   ============================================================ */
+:root.light {
+  --bg-base:     #ffffff;
+  --bg-surface:  #f6f8fa;
+  --bg-raised:   #ffffff;
+  --bg-overlay:  #eaeef2;
+
+  --text-primary:   #0d1117;
+  --text-secondary: #57606a;
+  --text-tertiary:  #8c959f;
+  --text-muted:     #afb8c1;
+
+  --border-subtle:  #d0d7de;
+  --border-default: #d0d7de;
+  --border-strong:  #8c959f;
+
+  --accent:        #0969da;
+  --accent-hover:  #0550ae;
+  --accent-muted:  #ddf4ff;
+  --accent-on:     #ffffff;
+
+  --green:       #1a7f37;
+  --green-muted: #dafbe1;
+
+  --amber:       #9a6700;
+  --amber-muted: #fff8c5;
+
+  --red:       #cf222e;
+  --red-muted: #ffebe9;
+
+  --purple:       #8250df;
+  --purple-muted: #fbefff;
+}
+
+/* ============================================================
+   Spacing, sizing, typography, easing
+   ============================================================ */
+:root {
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  12px;
+  --space-lg:  16px;
+  --space-xl:  24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --gutter:    24px;
+  --margin:    32px;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+  --content-max: 1100px;
+  --prose-max:   800px;
+  --nav-h:       56px;
+
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med:  250ms;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+html, body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-on);
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ============================================================
+   Layout
+   ============================================================ */
+main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+
+.section {
+  padding: 96px 0 32px;
+  scroll-margin-top: 80px;
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin: 0 0 12px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 28px;
+  letter-spacing: -0.005em;
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-on);
+}
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary {
+  background: var(--bg-overlay);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+.btn-secondary:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-strong);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Badges / tags
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.badge-skill {
+  background: var(--accent-muted);
+  color: var(--accent);
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.card-base {
+  position: relative;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  transition: border-color var(--dur-fast) var(--ease);
+  overflow: hidden;
+}
+.card-base:hover { border-color: var(--border-strong); }
+
+/* ============================================================
+   Icon button
+   ============================================================ */
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.icon-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Animation keyframes
+   ============================================================ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeSlideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wordRevealUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 768px) {
+  main { padding: 0 16px; }
+  .section { padding: 64px 0 24px; }
+}

@@ -1,0 +1,118 @@
+---
+import { experience } from "../data/portfolio";
+import Icon from "./Icon.astro";
+---
+
+<section id="experience" class="section">
+  <div data-reveal="up">
+    <div class="section-label">Work experience</div>
+  </div>
+
+  <h2
+    class="section-title"
+    data-text-reveal
+    data-stagger="40"
+    style={{ display: "flex", flexWrap: "wrap", gap: "0 0.3em" }}
+  >
+    {"Where I've shipped.".split(/\s+/).map((word) => (
+      <span style={{ overflow: "hidden", display: "inline-block" }}>
+        <span data-word style={{ display: "inline-block" }}>{word}</span>
+      </span>
+    ))}
+  </h2>
+
+  <!-- Timeline -->
+  <div style={{ position: "relative", paddingLeft: "28px" }}>
+    <!-- Vertical rail -->
+    <div style={{
+      position: "absolute",
+      left: "5px",
+      top: "8px",
+      bottom: "8px",
+      width: "2px",
+      background: "var(--border-default)",
+    }}></div>
+
+    {experience.map((item, i) => (
+      <div
+        data-reveal="up"
+        data-delay={String(i * 50)}
+        style={{ position: "relative", paddingBottom: "32px" }}
+      >
+        <!-- Timeline dot -->
+        <div style={{
+          position: "absolute",
+          left: "-27px",
+          top: "8px",
+          width: "12px",
+          height: "12px",
+          borderRadius: "9999px",
+          background: i === 0 ? "var(--accent)" : "var(--border-strong)",
+          border: "3px solid var(--bg-base)",
+          boxSizing: "content-box",
+        }}></div>
+
+        <!-- Head: role + meta -->
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          gap: "16px",
+          flexWrap: "wrap",
+        }}>
+          <div>
+            <h3 style={{ fontSize: "18px", fontWeight: 500, color: "var(--text-primary)", margin: 0 }}>{item.role}</h3>
+            <div style={{ fontSize: "14px", color: "var(--text-secondary)", marginTop: "2px" }}>{item.company}</div>
+            {item.team && (
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--text-tertiary)", marginTop: "2px" }}>{item.team}</div>
+            )}
+          </div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--text-tertiary)", whiteSpace: "nowrap", textAlign: "right" }}>
+            <div>{item.dates}</div>
+            <div>{item.location}</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        {item.description && (
+          <p style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.6, margin: "10px 0 0" }}>
+            {item.description}
+          </p>
+        )}
+
+        <!-- Bullets -->
+        {item.bullets.length > 0 && (
+          <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none" }}>
+            {item.bullets.map((bullet) => (
+              <li style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.6, paddingLeft: "16px", position: "relative", marginBottom: "6px" }}>
+                <span style={{
+                  position: "absolute",
+                  left: 0,
+                  top: "10px",
+                  width: "4px",
+                  height: "4px",
+                  borderRadius: "9999px",
+                  background: "var(--text-muted)",
+                }}></span>
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <!-- Tags -->
+        <div style={{ marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          {item.tags.map((tag) => (
+            <span class="badge badge-skill">{tag.toLowerCase()}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { setupScrollReveals, setupTextReveals } from "../scripts/motion";
+  setupScrollReveals();
+  setupTextReveals();
+</script>

@@ -1,0 +1,103 @@
+---
+import { identity } from "../data/portfolio";
+import Icon from "./Icon.astro";
+---
+
+<section id="top" style={{ paddingTop: "120px", paddingBottom: "48px", maxWidth: "760px" }}>
+  <!-- Comment line -->
+  <div
+    data-hero-entry
+    data-delay="0"
+    style={{ fontFamily: "var(--font-mono)", fontSize: "14px", color: "var(--green)", marginBottom: "24px" }}
+  >
+    {identity.comment}
+  </div>
+
+  <!-- Name (text reveal) -->
+  <h1
+    data-text-reveal
+    data-stagger="50"
+    style={{
+      fontSize: "56px",
+      fontWeight: 500,
+      lineHeight: 1.1,
+      letterSpacing: "-0.02em",
+      margin: 0,
+      color: "var(--text-primary)",
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "0 0.3em",
+    }}
+  >
+    {identity.name.split(/\s+/).map((word) => (
+      <span style={{ overflow: "hidden", display: "inline-block" }}>
+        <span data-word style={{ display: "inline-block" }}>{word}</span>
+      </span>
+    ))}
+  </h1>
+
+  <!-- Location -->
+  <div
+    data-hero-entry
+    data-delay="150"
+    style={{
+      marginTop: "12px",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
+      fontSize: "13px",
+      color: "var(--text-tertiary)",
+    }}
+  >
+    <Icon name="map-pin" size={13} />
+    {identity.location}
+  </div>
+
+  <!-- CTAs -->
+  <div
+    data-hero-entry
+    data-delay="250"
+    style={{ marginTop: "32px", display: "flex", gap: "12px", flexWrap: "wrap" }}
+  >
+    <a
+      href="#experience"
+      class="btn btn-primary"
+      id="hero-cta-work"
+    >
+      View my work <Icon name="arrow-right" size={14} />
+    </a>
+    <a
+      href={identity.linkedin}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-secondary"
+    >
+      <Icon name="linkedin" size={14} /> Let's talk
+    </a>
+    <a
+      href={identity.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-secondary"
+    >
+      <Icon name="github" size={14} /> GitHub
+    </a>
+  </div>
+</section>
+
+<script>
+  import { setupHeroEntries, setupTextReveals } from "../scripts/motion";
+
+  setupHeroEntries();
+  setupTextReveals();
+
+  /* Smooth scroll for the "View my work" CTA */
+  document.getElementById("hero-cta-work")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const el = document.getElementById("experience");
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  });
+</script>

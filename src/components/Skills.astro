@@ -1,0 +1,57 @@
+---
+import { skills } from "../data/portfolio";
+---
+
+<section id="skills" class="section">
+  <div data-reveal="up">
+    <div class="section-label">Skills</div>
+  </div>
+
+  <h2
+    class="section-title"
+    data-text-reveal
+    data-stagger="40"
+    style={{ display: "flex", flexWrap: "wrap", gap: "0 0.3em" }}
+  >
+    {"Tools I reach for.".split(/\s+/).map((word) => (
+      <span style={{ overflow: "hidden", display: "inline-block" }}>
+        <span data-word style={{ display: "inline-block" }}>{word}</span>
+      </span>
+    ))}
+  </h2>
+
+  <div style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gap: "12px",
+  }}>
+    {skills.map((group, i) => (
+      <div data-reveal="up" data-delay={String(i * 50)}>
+        <div class="card-base" style={{ padding: "16px 20px" }}>
+          <div style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "11px",
+            fontWeight: 500,
+            letterSpacing: "0.07em",
+            textTransform: "uppercase",
+            color: "var(--text-tertiary)",
+            margin: "0 0 12px",
+          }}>
+            {group.group}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+            {group.items.map((item) => (
+              <span class="badge badge-skill">{item.toLowerCase()}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { setupScrollReveals, setupTextReveals } from "../scripts/motion";
+  setupScrollReveals();
+  setupTextReveals();
+</script>

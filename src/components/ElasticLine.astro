@@ -1,0 +1,87 @@
+---
+// Interactive SVG elastic line separator
+---
+
+<div
+  class="elastic-line-wrap"
+  style={{ maxWidth: "var(--content-max)", margin: "0 auto", padding: "0 var(--margin)" }}
+>
+  <div class="elastic-container" style={{ position: "relative", height: "1px", width: "100%" }}>
+    <div class="elastic-hover-zone"></div>
+    <svg class="elastic-svg" aria-hidden="true">
+      <path class="elastic-path" fill="none" stroke="var(--border-default)" stroke-width="1" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .elastic-hover-zone {
+    position: relative;
+    top: -40px;
+    z-index: 10;
+    height: 80px;
+    width: 100%;
+    cursor: default;
+  }
+  .elastic-svg {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+</style>
+
+<script>
+  for (const container of document.querySelectorAll<HTMLElement>(".elastic-container")) {
+    const hoverZone = container.querySelector<HTMLElement>(".elastic-hover-zone")!;
+    const pathEl = container.querySelector<SVGPathElement>(".elastic-path")!;
+
+    let progress = 0;
+    let xFrac = 0.5;
+    let timeVal = Math.PI / 2;
+    let rafId: number | null = null;
+
+    function setPath(p: number) {
+      const w = container.offsetWidth;
+      pathEl.setAttribute("d", `M0 50 Q${w * xFrac} ${50 + p}, ${w} 50`);
+    }
+
+    setPath(0);
+    window.addEventListener("resize", () => setPath(0), { passive: true });
+
+    function lerp(a: number, b: number, t: number) { return a * (1 - t) + b * t; }
+
+    function animateOut() {
+      const newProgress = progress * Math.sin(timeVal);
+      progress = lerp(progress, 0, 0.025);
+      timeVal += 0.2;
+      setPath(newProgress);
+      if (Math.abs(progress) > 0.75) {
+        rafId = requestAnimationFrame(animateOut);
+      } else {
+        timeVal = Math.PI / 2;
+        progress = 0;
+      }
+    }
+
+    hoverZone.addEventListener("mouseenter", () => {
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+      timeVal = Math.PI / 2;
+      progress = 0;
+    });
+
+    hoverZone.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      xFrac = (e.clientX - rect.left) / rect.width;
+      progress += e.movementY;
+      setPath(progress);
+    });
+
+    hoverZone.addEventListener("mouseleave", () => {
+      animateOut();
+    });
+  }
+</script>
