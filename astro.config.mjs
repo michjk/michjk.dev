@@ -1,6 +1,30 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
+// The v0 preview proxy forwards requests with `Sec-Fetch-Site: cross-site`
+// but strips the `Origin` header, so `security.allowedDomains` can never match
+// and Astro's dev server returns 403. This dev-only middleware runs before
+// Astro's check and drops the fetch-metadata header for those origin-less
+// requests. `configureServer` never runs during `astro build`.
+function allowOriginlessPreviewRequests() {
+  return {
+    name: 'allow-originless-preview-requests',
+    configureServer(server) {
+      return () => {
+        server.middlewares.stack.unshift({
+          route: '',
+          handle(req, _res, next) {
+            if (req.headers['sec-fetch-site'] === 'cross-site' && !req.headers.origin) {
+              delete req.headers['sec-fetch-site'];
+            }
+            next();
+          },
+        });
+      };
+    },
+  };
+}
+
 export default defineConfig({
   output: 'static',
   // No custom domain yet, so this deploys to the repo's GitHub Pages
@@ -21,7 +45,7 @@ export default defineConfig({
     allowedDomains: [{}],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), allowOriginlessPreviewRequests()],
     server: {
       allowedHosts: true,
       cors: true,
