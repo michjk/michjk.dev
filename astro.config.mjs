@@ -7,7 +7,8 @@ export default defineConfig({
   // subpath. Once a domain is added: set site to the domain, drop base,
   // and add a public/CNAME file with the domain.
   site: 'https://michjk.github.io',
-  base: '/michjk.dev/',
+  // Dev serves from root so the v0 preview (which loads "/") works.
+  base: process.argv.includes('dev') ? '/' : '/michjk.dev/',
   vite: {
     plugins: [tailwindcss()],
   },
