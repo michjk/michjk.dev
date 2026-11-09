@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "packageManager": "pnpm@11.1.2",
   "scripts": {
-    "dev": "astro dev --force",
+    "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
