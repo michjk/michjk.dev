@@ -6,8 +6,6 @@ export interface Identity {
   location: string;
   github: string;
   linkedin: string;
-  portfolio: string;
-  blog: string;
 }
 
 export interface ExperienceItem {
@@ -49,8 +47,6 @@ export const identity: Identity = {
   location: "Singapore",
   github: "https://github.com/michjk",
   linkedin: "https://linkedin.com/in/mijonathan",
-  portfolio: "#",
-  blog: "#",
 };
 
 export const about: string[] = [
@@ -155,6 +151,4 @@ export const skills: SkillGroup[] = [
 export const links: LinkItem[] = [
   { label: "GitHub",    url: "https://github.com/michjk",          icon: "github" },
   { label: "LinkedIn",  url: "https://linkedin.com/in/mijonathan", icon: "linkedin" },
-  { label: "Portfolio", url: "#",                                   icon: "external" },
-  { label: "Blog",      url: "#",                                   icon: "pen" },
 ];

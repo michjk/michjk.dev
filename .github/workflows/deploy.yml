@@ -40,6 +40,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          BASE_PATH: /michjk.dev/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
